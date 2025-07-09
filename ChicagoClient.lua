@@ -1,11 +1,21 @@
 
--- Chicago Client Loader with Progress Bar
-local ViewportSize = workspace.CurrentCamera.ViewportSize
+-- Stable Chicago Client Loader with UI Safety
+local successDrawing, DrawingTest = pcall(function()
+    return Drawing.new("Text")
+end)
+
+if not successDrawing then
+    warn("Drawing API not supported. Your executor may be incompatible.")
+    return
+end
+
+local cam = workspace.CurrentCamera
+local viewSize = cam and cam.ViewportSize or Vector2.new(800, 600)
 
 local loadingText = Drawing.new("Text")
 loadingText.Text = "Loading cheat... 0%"
 loadingText.Size = 20
-loadingText.Position = Vector2.new(20, ViewportSize.Y - 60)
+loadingText.Position = Vector2.new(20, viewSize.Y - 60)
 loadingText.Color = Color3.fromRGB(255, 255, 0)
 loadingText.Outline = true
 loadingText.Center = false
@@ -13,14 +23,14 @@ loadingText.Visible = true
 
 local progressBarBG = Drawing.new("Square")
 progressBarBG.Size = Vector2.new(300, 20)
-progressBarBG.Position = Vector2.new(20, ViewportSize.Y - 30)
+progressBarBG.Position = Vector2.new(20, viewSize.Y - 30)
 progressBarBG.Color = Color3.fromRGB(50, 50, 50)
 progressBarBG.Filled = true
 progressBarBG.Visible = true
 
 local progressBar = Drawing.new("Square")
 progressBar.Size = Vector2.new(1, 20)
-progressBar.Position = Vector2.new(20, ViewportSize.Y - 30)
+progressBar.Position = Vector2.new(20, viewSize.Y - 30)
 progressBar.Color = Color3.fromRGB(0, 255, 0)
 progressBar.Filled = true
 progressBar.Visible = true
