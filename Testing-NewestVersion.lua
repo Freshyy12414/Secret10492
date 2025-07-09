@@ -38,6 +38,8 @@ progressBar.Visible = true
 
 task.delay(0, function()
     pcall(function()
+-- Cleaned Chicago Client Script: Only Aimbot, ESP, and Misc Tabs Retained
+
 ----------------------------------------------------------
 -- Rayfield Setup & Window/Tabs
 ----------------------------------------------------------
