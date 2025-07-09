@@ -1,4 +1,16 @@
--- Cleaned Chicago Client Script: Only Aimbot, ESP, and Misc Tabs Retained
+
+-- Chicago Client (Staggered Loading Version)
+-- Automatically spaced out to prevent instant crashes
+
+task.spawn(function()
+    -- GUI and Rayfield setup (loads instantly)
+    local function safeLoad(func)
+        local success, err = pcall(func)
+        if not success then warn("[ERROR]", err) end
+    end
+
+    safeLoad(function()
+﻿-- Cleaned Chicago Client Script: Only Aimbot, ESP, and Misc Tabs Retained
 
 ----------------------------------------------------------
 -- Rayfield Setup & Window/Tabs
@@ -359,7 +371,19 @@ SecondTab:CreateColorPicker({
     Color = SkeletonColor,
     Callback = function(color)
         SkeletonColor = color
-        for _, obj in pairs(ESPObjects) do
+    
+    end)
+end)
+
+task.delay(1, function()
+    -- Load mid-section: Aimbot, FOV
+    local function safeLoad(func)
+        local success, err = pcall(func)
+        if not success then warn("[ERROR]", err) end
+    end
+
+    safeLoad(function()
+    for _, obj in pairs(ESPObjects) do
             if obj.Skeleton then
                 for _, line in pairs(obj.Skeleton.Lines) do
                     line.Color = color
@@ -674,7 +698,19 @@ RunService.Stepped:Connect(function()
 end)
 
 ----------------------------------------------------------
--- Infinite Jump / Fly
+-- Infinite Jump /
+    end)
+end)
+
+task.delay(2, function()
+    -- Load ESP and other features
+    local function safeLoad(func)
+        local success, err = pcall(func)
+        if not success then warn("[ERROR]", err) end
+    end
+
+    safeLoad(function()
+ Fly
 ----------------------------------------------------------
 ThirdTab:CreateToggle({
    Name = "Infinite Jump / Fly",
@@ -1003,3 +1039,6 @@ end
 
 -- Hook into heartbeat to update regularly
 RunService.Heartbeat:Connect(updateStatusText)
+
+    end)
+end)
