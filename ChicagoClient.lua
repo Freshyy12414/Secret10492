@@ -1,15 +1,33 @@
 
--- Chicago Client (Staggered Loading Version)
--- Automatically spaced out to prevent instant crashes
+-- Chicago Client Loader with Progress Bar
+local ViewportSize = workspace.CurrentCamera.ViewportSize
 
-task.spawn(function()
-    -- GUI and Rayfield setup (loads instantly)
-    local function safeLoad(func)
-        local success, err = pcall(func)
-        if not success then warn("[ERROR]", err) end
-    end
+local loadingText = Drawing.new("Text")
+loadingText.Text = "Loading cheat... 0%"
+loadingText.Size = 20
+loadingText.Position = Vector2.new(20, ViewportSize.Y - 60)
+loadingText.Color = Color3.fromRGB(255, 255, 0)
+loadingText.Outline = true
+loadingText.Center = false
+loadingText.Visible = true
 
-    safeLoad(function()
+local progressBarBG = Drawing.new("Square")
+progressBarBG.Size = Vector2.new(300, 20)
+progressBarBG.Position = Vector2.new(20, ViewportSize.Y - 30)
+progressBarBG.Color = Color3.fromRGB(50, 50, 50)
+progressBarBG.Filled = true
+progressBarBG.Visible = true
+
+local progressBar = Drawing.new("Square")
+progressBar.Size = Vector2.new(1, 20)
+progressBar.Position = Vector2.new(20, ViewportSize.Y - 30)
+progressBar.Color = Color3.fromRGB(0, 255, 0)
+progressBar.Filled = true
+progressBar.Visible = true
+
+
+task.delay(0, function()
+    pcall(function()
 ﻿-- Cleaned Chicago Client Script: Only Aimbot, ESP, and Misc Tabs Retained
 
 ----------------------------------------------------------
@@ -195,7 +213,15 @@ local function getClosestTarget()
 end
 
 local function predictPosition(target)
-   if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+   if target and target
+        progressBar.Size = Vector2.new(48, 20)
+        loadingText.Text = "Loading cheat... 16%"
+    end)
+end)
+
+task.delay(20, function()
+    pcall(function()
+.Character and target.Character:FindFirstChild("HumanoidRootPart") then
       local hrp = target.Character.HumanoidRootPart
       local velocity = hrp.Velocity
       return target.Character[aimPart].Position + (velocity * predictionFactor)
@@ -371,19 +397,7 @@ SecondTab:CreateColorPicker({
     Color = SkeletonColor,
     Callback = function(color)
         SkeletonColor = color
-    
-    end)
-end)
-
-task.delay(1, function()
-    -- Load mid-section: Aimbot, FOV
-    local function safeLoad(func)
-        local success, err = pcall(func)
-        if not success then warn("[ERROR]", err) end
-    end
-
-    safeLoad(function()
-    for _, obj in pairs(ESPObjects) do
+        for _, obj in pairs(ESPObjects) do
             if obj.Skeleton then
                 for _, line in pairs(obj.Skeleton.Lines) do
                     line.Color = color
@@ -395,7 +409,15 @@ task.delay(1, function()
 
 SecondTab:CreateColorPicker({
     Name = "Chams Color",
-    Flag = "Chams_Color",
+    Fl
+        progressBar.Size = Vector2.new(99, 20)
+        loadingText.Text = "Loading cheat... 33%"
+    end)
+end)
+
+task.delay(40, function()
+    pcall(function()
+ag = "Chams_Color",
     Color = ChamsColor,
     Callback = function(color)
         ChamsColor = color
@@ -554,7 +576,15 @@ local function DrawESP(plr)
 
                 top.From = Vector2.new(x, y)
                 top.To = Vector2.new(x + width, y)
-                top.Visible = ESPEnabled
+      
+        progressBar.Size = Vector2.new(150, 20)
+        loadingText.Text = "Loading cheat... 50%"
+    end)
+end)
+
+task.delay(60, function()
+    pcall(function()
+          top.Visible = ESPEnabled
 
                 bottom.From = Vector2.new(x, y + height)
                 bottom.To = Vector2.new(x + width, y + height)
@@ -698,19 +728,7 @@ RunService.Stepped:Connect(function()
 end)
 
 ----------------------------------------------------------
--- Infinite Jump /
-    end)
-end)
-
-task.delay(2, function()
-    -- Load ESP and other features
-    local function safeLoad(func)
-        local success, err = pcall(func)
-        if not success then warn("[ERROR]", err) end
-    end
-
-    safeLoad(function()
- Fly
+-- Infinite Jump / Fly
 ----------------------------------------------------------
 ThirdTab:CreateToggle({
    Name = "Infinite Jump / Fly",
@@ -734,7 +752,15 @@ ThirdTab:CreateSlider({
 })
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
-   if gameProcessed then return end
+   if gameProcessed then retur
+        progressBar.Size = Vector2.new(198, 20)
+        loadingText.Text = "Loading cheat... 66%"
+    end)
+end)
+
+task.delay(80, function()
+    pcall(function()
+n end
    if infiniteJumpEnabled and input.KeyCode == Enum.KeyCode.Space then
       local character = LocalPlayer.Character
       if character and character:FindFirstChild("HumanoidRootPart") then
@@ -894,7 +920,15 @@ ThirdTab:CreateToggle({
         local humanoid = character:WaitForChild("Humanoid")
 
         if Value then
-            humanoid.PlatformStand = false
+  
+        progressBar.Size = Vector2.new(249, 20)
+        loadingText.Text = "Loading cheat... 83%"
+    end)
+end)
+
+task.delay(100, function()
+    pcall(function()
+          humanoid.PlatformStand = false
             hrp.Anchored = true
 
             local currentCFrame = hrp.CFrame
@@ -1040,5 +1074,13 @@ end
 -- Hook into heartbeat to update regularly
 RunService.Heartbeat:Connect(updateStatusText)
 
+        progressBar.Size = Vector2.new(300, 20)
+        loadingText.Text = "Loading cheat... 100%"
     end)
+end)
+
+task.delay(120, function()
+    if loadingText then loadingText:Remove() end
+    if progressBar then progressBar:Remove() end
+    if progressBarBG then progressBarBG:Remove() end
 end)
